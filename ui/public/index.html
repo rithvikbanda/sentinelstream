@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SentinelStream Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>SentinelStream</h1>
+    <div class="api-config">
+      <label for="api-base">API base</label>
+      <input id="api-base" type="text" spellcheck="false">
+      <span id="conn-status" class="status-dot" title="connection status"></span>
+    </div>
+  </header>
+
+  <section id="metrics" class="cards"></section>
+
+  <section class="panel">
+    <h2>Stream health</h2>
+    <div id="stream-health" class="cards"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Sensors <span id="sensor-count" class="muted"></span></h2>
+    <table id="sensors-table">
+      <thead>
+        <tr>
+          <th>Sensor ID</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Last sequence</th>
+          <th>Received</th>
+          <th>Dropped</th>
+          <th>Duplicates</th>
+          <th>Out of order</th>
+          <th>Errors</th>
+          <th>Anomalies</th>
+          <th>Last seen</th>
+        </tr>
+      </thead>
+      <tbody id="sensors-body"></tbody>
+    </table>
+  </section>
+
+  <footer>
+    Polling every 2s &middot; <span id="last-updated"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

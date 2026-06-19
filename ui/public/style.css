@@ -1,0 +1,148 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --border: #2a2e38;
+  --text: #e6e8eb;
+  --muted: #8a8f9b;
+  --accent: #5fb3ff;
+  --good: #3ddc84;
+  --warn: #ffb454;
+  --bad: #ff5f5f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.api-config {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.api-config input {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  width: 220px;
+  font-size: 0.85rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--muted);
+  display: inline-block;
+}
+.status-dot.ok { background: var(--good); }
+.status-dot.err { background: var(--bad); }
+
+.panel {
+  padding: 1rem 1.5rem;
+}
+
+.panel h2 {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem 0 1.5rem;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  min-width: 140px;
+}
+
+.card .label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.card .value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.card.warn .value { color: var(--warn); }
+.card.bad .value { color: var(--bad); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.pill.healthy { background: rgba(61, 220, 132, 0.15); color: var(--good); }
+.pill.stale { background: rgba(255, 95, 95, 0.15); color: var(--bad); }
+
+.muted { color: var(--muted); font-weight: normal; font-size: 0.85rem; }
+
+footer {
+  padding: 1rem 1.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+#sensors-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}

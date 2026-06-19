@@ -1,0 +1,27 @@
+services:
+  server:
+    build: .
+    entrypoint: ["/app/server"]
+    command:
+      - "--port=9000"
+      - "--tcp-port=9001"
+      - "--api-addr=:8080"
+      - "--stale-timeout=10s"
+      - "--health-check-interval=2s"
+    ports:
+      - "9000:9000/udp"
+      - "9001:9001/tcp"
+      - "8080:8080/tcp"
+
+  simulator:
+    build: .
+    entrypoint: ["/app/simulator"]
+    command:
+      - "--sensors=20"
+      - "--rate=5"
+      - "--types=gps,drone,vehicle,temperature"
+      - "--protocol=udp"
+      - "--target=server:9000"
+      - "--verbose=false"
+    depends_on:
+      - server

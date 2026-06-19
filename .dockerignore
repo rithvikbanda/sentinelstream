@@ -1,0 +1,8 @@
+bin/
+benchmarks/
+tests/
+*.jsonl
+*.log
+.git/
+.gitignore
+README.md

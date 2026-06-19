@@ -1,0 +1,13 @@
+{
+  "name": "sentinelstream-ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Small local dashboard for SentinelStream, served by Express; the browser calls the Go REST API directly.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

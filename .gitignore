@@ -1,0 +1,22 @@
+# Binaries
+bin/
+*.exe
+
+# Go
+*.test
+*.out
+cpu.prof
+mem.prof
+
+# Node (dashboard)
+ui/node_modules/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local runtime artifacts
+events.jsonl
