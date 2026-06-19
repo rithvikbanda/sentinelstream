@@ -137,6 +137,7 @@ runnable sample configuration; the flags below are the full reference.
 | `--tcp-port` | `9001` | TCP port to listen on |
 | `--api-addr` | `:8080` | REST API listen address |
 | `--buffer` | `1000` | Bounded queue capacity (see [Backpressure policy](#backpressure-policy)) |
+| `--workers` | `8` | Number of worker goroutines in the processing pool |
 | `--stale-timeout` | `5s` | Time without a message before a sensor is marked stale |
 | `--health-check-interval` | `1s` | How often the stale-sensor scan runs |
 | `--record` | _(disabled)_ | If set, append every accepted message to this JSON Lines file |

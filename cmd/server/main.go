@@ -25,6 +25,7 @@ func main() {
 	tcpPort := flag.Int("tcp-port", 9001, "TCP port to listen on")
 	apiAddr := flag.String("api-addr", ":8080", "address for the REST API to listen on")
 	bufferSize := flag.Int("buffer", 1000, "size of the message buffer")
+	numWorkers := flag.Int("workers", 8, "number of worker goroutines in the processing pool")
 	staleTimeout := flag.Duration("stale-timeout", 5*time.Second, "time without a message before a sensor is marked stale")
 	healthCheckInterval := flag.Duration("health-check-interval", 1*time.Second, "how often to scan for stale sensors")
 	recordFile := flag.String("record", "", "if set, append every accepted message to this JSON Lines file for later replay")
@@ -36,12 +37,13 @@ func main() {
 	fmt.Printf("=== SentinelStream Telemetry Server ===\n")
 	fmt.Printf("Listening on UDP port %d and TCP port %d\n", *udpPort, *tcpPort)
 	fmt.Printf("REST API on %s\n", *apiAddr)
-	fmt.Printf("Buffer size: %d messages\n\n", *bufferSize)
+	fmt.Printf("Buffer size: %d messages\n", *bufferSize)
+	fmt.Printf("Worker pool: %d goroutines\n\n", *numWorkers)
 
 	// Create the shared sensor state store and the processor's worker pool
 	store := state.NewStateStore()
 	procConfig := processor.ProcessorConfig{
-		NumWorkers: 8,
+		NumWorkers: *numWorkers,
 		QueueSize:  *bufferSize,
 	}
 	proc := processor.NewProcessor(procConfig, store)
