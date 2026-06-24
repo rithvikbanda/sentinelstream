@@ -13,58 +13,6 @@ backpressure handling, structured logging, and benchmarking - built in
 phases, each with its own tests and a real `go test -race` pass before
 moving on.
 
-## Architecture
-
-```text
-┌──────────────────────┐
-│   Sensor Simulator    │  cmd/simulator - generates GPS/drone/vehicle/
-│  (--target host:port) │  temperature telemetry, optionally sends it over
-└──────────┬────────────┘  UDP or TCP to a running server
-           │
-       TCP / UDP
-           │
-┌──────────▼────────────┐
-│   Network Listeners    │  internal/ingestion
-│ UDP datagram loop       │  - one packet = one message (UDP)
-│ TCP: one goroutine/conn │  - newline-delimited JSON (TCP)
-└──────────┬────────────┘
-           │
-┌──────────▼────────────┐
-│ Parser & Envelope       │  internal/protocol
-│ Validation              │  required fields, timestamp sanity, payload size
-└──────────┬────────────┘
-           │
-┌──────────▼────────────┐
-│ Bounded Channel         │  internal/processor
-│ (backpressure)          │  chan *TelemetryMessage, fixed capacity
-└──────────┬────────────┘
-           │
-┌──────────▼────────────┐
-│ Worker Pool             │  internal/processor
-│ - sensor-specific        │  - per-sensor range validation -> anomalies
-│   range validation       │  - sequence tracking -> dropped/duplicate/
-│ - sequence tracking       │    out-of-order
-│ - latency recording       │
-└───────┬─────────┬─────┘
-        │         │
-┌───────▼───┐  ┌──▼─────────────────┐
-│State Store│  │ Stale Monitor        │  internal/state, internal/health
-│(RWMutex)  │  │ (background scan)    │
-└───────┬───┘  └──────────┬──────────┘
-        │                 │
-┌───────▼─────────────────▼────────┐
-│ REST API (internal/api)            │
-│ /api/v1/sensors                    │
-│ /api/v1/sensors/{id}                │
-│ /api/v1/health/streams              │
-│ /api/v1/metrics/summary             │
-└─────────────────────────────────────┘
-
-Optional, alongside the pipeline:
-  internal/replay   - record accepted messages to JSON Lines, replay later
-  internal/logging  - structured JSON event log (log/slog)
-```
-
 ## Quick start
 
 ### Locally
